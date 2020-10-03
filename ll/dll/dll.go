@@ -50,6 +50,12 @@ func (d *Dll) Delete(key int) {
 	}
 }
 
+func (d *Dll) BulkAdd(keys ...int) {
+	for _, key := range(keys) {
+		d.Add(key)
+	}
+}
+
 // Create a Doubly-Linked List with sentinel
 func Create() *Dll {
 	sentinal := node{}

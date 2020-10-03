@@ -13,6 +13,10 @@ type Sll struct {
 	head *node
 }
 
+func (n *node) String() string {
+	return fmt.Sprint(n.key)
+}
+
 func (s *Sll) Display() {
 	for current := s.head.next; current != nil; current = current.next {
 		fmt.Print(current.key)
@@ -52,10 +56,32 @@ func (s *Sll) Delete(key int) {
 	return
 }
 
+func (s *Sll) Reverse() {
+	var prev, cur, next *node 
+
+	cur = s.head.next
+	next = cur.next
+
+	for next != nil {
+		cur.next = prev
+		prev = cur
+		cur = next
+		next = cur.next
+	}
+	cur.next = prev
+	s.head.next = cur
+}
+
 func (s *Sll) Add(key int) {
 	s.head.next = &node{
 		key:  key,
 		next: s.head.next,
+	}
+}
+
+func (s *Sll) BulkAdd(keys ...int) {
+	for _, key := range(keys) {
+		s.Add(key)
 	}
 }
 
